@@ -17,3 +17,7 @@ chmod +x MSFinstaller && ./MSFinstaller
 
 
 # 
+
+![Screenshot_20210318_233111_com termux](https://user-images.githubusercontent.com/77165035/111732970-bfaef500-8844-11eb-9339-ed18258ae026.jpg)
+
+![Screenshot_20210318_235011_com termux](https://user-images.githubusercontent.com/77165035/111732978-c8073000-8844-11eb-8128-0302f59e6445.jpg)
