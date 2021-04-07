@@ -15,12 +15,12 @@ chmod +x MSFinstaller && ./MSFinstaller
 
 ```
 
-# ejecucion
+# Ejecucion
 ```
-     msfconsole
+ msfconsole
 
 ```
-# 
+# VIEW 
 
 ![Screenshot_20210318_233111_com termux](https://user-images.githubusercontent.com/77165035/111732970-bfaef500-8844-11eb-9339-ed18258ae026.jpg)
 #
