@@ -22,7 +22,8 @@ chmod +x MSFinstaller && ./MSFinstaller
 ```
 # VIEW 
 
-![IMG-20210418-WA0049](https://user-images.githubusercontent.com/77165035/115166872-f0b85a80-a07a-11eb-98c4-634ef2bd2341.jpg)
+![Screenshot_20210418_120059_com termux](https://user-images.githubusercontent.com/77165035/115166934-307f4200-a07b-11eb-8db4-18d0cf38fe75.jpg)
+
 #
 
 
