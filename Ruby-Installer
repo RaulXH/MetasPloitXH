@@ -3,8 +3,14 @@
 # Este script esta programado sin copia de nadie, solamente
 # el link al repositorio de adbhacker fue lo que copie
 #
+# Credits to my Friend Abhacker
+#
 #
 # Persistencia de ruby fue idea mia 
+#
+#
+#   Script Original
+#
 #
 # Colores 
 AGUA="\e[0;50;36m" 
