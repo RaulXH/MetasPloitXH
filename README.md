@@ -1,9 +1,9 @@
-# Instalador de Metasploit-Framework
+# Metasploit-Framework Installer
 <p align="center"><img src="https://www.diegomacedo.com.br/wp-content/uploads/2016/09/Metasploit-msf.png" alt="ICON" align="center" border="0" width="800" height="auto"></p>
 <hr>
 
 
-# Comandos de instalacion
+# Installation Commands
 ```
 cd $HOME
 
@@ -15,7 +15,7 @@ chmod +x MSFinstaller && ./MSFinstaller
 
 ```
 
-# Ejecucion
+# Execute
 ```
  msfconsole
 
