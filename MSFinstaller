@@ -99,7 +99,7 @@ mkdir -p $CONFIG
 #
 until [[ $(md5sum $CONFIG/$NAME | awk '{print $1}') = "$TERMUX_MD5SUM_MSF" ]]
 do
-	printf "\n[✗] Incorrect download | check your internet[✗]${FORT}\n\n"
+	printf "\n${RED}[✗] ${WHITE}Incorrect download | check your internet ${RED}[✗]${FORT}\n\n"
 	rm -rf $CONFIG/$NAME
 	exit 0
 done
