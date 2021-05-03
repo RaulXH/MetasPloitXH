@@ -47,19 +47,11 @@ printf "${W}
 
 ${FORT}"                                             
 }
-BannerRuby(){
-	printf "${MOR}
-┬─┐┬ ┬┌┐ ┬ ┬
-├┬┘│ │├┴┐└┬┘
-┴└─└─┘└─┘ ┴${WHITE}V:2.7.0${FORT}
-"
-}
 clear
 # Eliminacion de fichero existente
 rm -rf $PREFIX/bin/msf* $PREFIX/opt/metasploit*
 NAME="metasploit-framework-$MSFVERSION.tar.gz"
 NOOB=metasploit-framework
-RUBY="Ruby-Installer"
 declare -r CONFIG="$PREFIX/etc/MSF"
 function ERROR()
 {
@@ -80,10 +72,6 @@ apt install -y axel libiconv zlib autoconf bison clang coreutils curl findutils 
 ln -sf $PREFIX/include/libxml2/libxml $PREFIX/include/
 clear
 sleep 1
-BannerRuby
-chmod +x $MSF/$RUBY
-$MSF/./$RUBY
-sleep 3
 #
 # Download Metasploit release github
 #
