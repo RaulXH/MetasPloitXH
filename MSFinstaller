@@ -79,11 +79,11 @@ apt install -y axel libiconv zlib autoconf bison clang coreutils curl findutils 
 # Many phones are claiming libxml2 not found error
 ln -sf $PREFIX/include/libxml2/libxml $PREFIX/include/
 clear
-#sleep 1
-#BannerRuby
-#chmod +x $MSF/$RUBY
-#$MSF/./$RUBY
-#sleep 3
+sleep 1
+BannerRuby
+chmod +x $MSF/$RUBY
+$MSF/./$RUBY
+sleep 3
 #
 # Download Metasploit release github
 #
