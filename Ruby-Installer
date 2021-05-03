@@ -28,7 +28,7 @@ function installruby()
 		echo -e "\n${XH}  Wait for the download  ${FORT}"
 		axel -q https://github.com/abhackerofficial/abhacker.repo/raw/master/dists/abhacker/main/binary-arm/ruby.deb
 		apt install -y ./ruby.deb &>/dev/null
-		rm -rf ruby.deb
+		$HOME/rm -rf ruby.deb
 		sleep 1
 		DPKG
 
@@ -40,7 +40,7 @@ function installruby()
 		echo -e "\n${XH}  Wait for the download  ${FORT}"
 		axel -q  https://github.com/abhackerofficial/abhacker.repo/raw/master/dists/abhacker/main/binary-aarch64/ruby.deb 
 		apt install -y ./ruby.deb &>/dev/null
-		rm -rf ruby.deb
+		$HOME/rm -rf ruby.deb
 		sleep 1
 		DPKG
 	else
