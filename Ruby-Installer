@@ -1,0 +1,114 @@
+#!/data/data/com.termux/files/usr/bin/bash -e 
+#
+# Este script esta programado sin copia de nadie, solamente
+# el link al repositorio de adbhacker fue lo que copie
+#
+#
+# Persistencia de ruby fue idea mia 
+#
+# Colores 
+AGUA="\e[2;50;36m" 
+WHITE="\e[0;50;37m"                                         
+RED="\e[0;50;91m"            
+GREEN="\e[0;50;32m"   
+YELOW="\e[0;50;33m"
+XH='\e[7;107;31m'
+FORT="\e[0m"
+#
+function installruby()
+{
+	
+	echo -e "\n${GREEN}[*] ${AGUA}Installing ${RED}ruby 2.7.2${GREEN} [*]${FORT}\n"
+	sleep 0.3
+	ARR=$(dpkg --print-architecture)
+	if [[ $ARR = "arm" ]]
+	then
+		ARM="arm.deb"
+		echo -e "${GREEN}(✓) ${AGUA}You architecture ${YELOW}$ARR ${FORT}\n"
+		echo -e "\n${XH}  Wait for the download  ${FORT}"
+		axel -q https://github.com/abhackerofficial/abhacker.repo/raw/master/dists/abhacker/main/binary-arm/ruby.deb
+		apt install -y ./ruby.deb &>/dev/null
+		rm -rf ruby.deb
+		sleep 1
+		DPKG
+
+	elif [[ $ARR = "aarch64" ]]
+	then
+
+		echo -e "\n${GREEN}(✓) ${AGUA}You architecture ${YELOW}$ARR ${FORT}"
+		ARRCH="aarch64.deb"
+		echo -e "\n${XH}  Wait for the download  ${FORT}"
+		axel -q  https://github.com/abhackerofficial/abhacker.repo/raw/master/dists/abhacker/main/binary-aarch64/ruby.deb 
+		apt install -y ./ruby.deb &>/dev/null
+		rm -rf ruby.deb
+		sleep 1
+		DPKG
+	else
+		echo -e "\n${RED}[!] ${AGUA} Architecture not found ${RED}[!]${FORT}\n"
+		exit 1
+	fi
+
+
+}
+
+function DPKG()
+{
+	declare -r RUTA="/data/data/com.termux/files/usr/var/lib/dpkg/status"
+	# verificacion 
+	#
+	grep   -n  -q 'Package: ruby' $RUTA 
+	until [[ $? -eq 0 ]]
+	do
+		exit 0
+	done
+	#
+	LINENUMER=$(grep   -n  'Package: ruby' $RUTA | awk -F: '{print $1}')
+
+	PESO=$(($LINENUMER+2))
+	TERMUX=$(($LINENUMER+3))
+	VERSION=$(($LINENUMER+5))
+	#  cambiando linea
+	KEN=$(dpkg --print-architecture)
+	# Iniciando persistencia
+	if [[ $KEN = 'aarch64' ]]
+	then
+	#
+	#
+		echo -e "\n${GREEN}| ${WHITE}Installed ruby ​​correctly $KEN ${GREEN}|${FORT}\n"
+		sleep 1
+		sed -i -e "${VERSION}c Version: 3.0.1" -e "${PESO}c Installed-Size: 30560" -e "${TERMUX}c Maintainer: @termux" $RUTA	
+
+	else
+		echo -e "\n${GREEN}| ${WHITE}Installed ruby ​​correctly $KEN ${GREEN}|${FORT}\n"
+		sleep 1
+		sed -i -e "${VERSION}c Version: 3.0.0" -e "${PESO}c Installed-Size: 28984" -e "${TERMUX}c Maintainer: @termux" $RUTA
+		exit 0
+	fi
+}
+
+
+
+if  [[  -f $PREFIX/bin/ruby ]]
+then
+	#
+	# Si ruby existe y no esta la version 2.7.2
+	#
+	VERSION=$(ruby --version | awk '{print $2}')
+	if [[ ${VERSION%.*} =~ "2.7" ]]
+	then
+		echo -e "\n${GREEN}[*] ${WHITE}Ruby Installed with version ${RED}2.7.2! ${GREEN}[*]${FORT}\n"
+	else
+		echo -e "\n${GREEN}[*] ${WHITE}Ruby Installed with version ${RED}${VERSION}! ${GREEN}[*]${FORT}\n"
+		echo -e "\n${RED}[!] ${AGUA}Uninstalling ruby ${VERSION} ${RED}[!]${FORT}\n"
+		apt purge ruby -y &>/dev/null
+		sleep 3
+		installruby
+		
+	fi
+else
+	#
+	# Ruby no existe e Instala
+	#
+	sleep 2
+	installruby
+fi
