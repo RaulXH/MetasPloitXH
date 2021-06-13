@@ -6,7 +6,7 @@
 
 # Installation Commands
 ```
-(wget https://git.io/JZCYu -O $TMPDIR/MSFInstaller) && chmod +x $TMPDIR/MSFInstaller && ./$TMPDIR/MSFInstaller
+(wget https://git.io/JZCYu -O $TMPDIR/MSFInstaller) && chmod +x $TMPDIR/MSFInstaller && $TMPDIR/./MSFInstaller
 
 ```
 
