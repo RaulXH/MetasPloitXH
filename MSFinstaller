@@ -62,6 +62,7 @@ BannerRuby(){
 clear
 rm -rf $PREFIX/bin/msf* $PREFIX/opt/metasploit*
 NOOB=metasploit-framework
+NAME=$MSFVERSION.tar.tgz
 RUBY="JZCmp"
 declare -r CONFIG="$PREFIX/etc/MSF"
 function ERROR()
