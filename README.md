@@ -6,13 +6,7 @@
 
 # Installation Commands
 ```
-cd $HOME
-
-git clone https://github.com/RaulXH/MetasPloitXH
-
-cd MetasPloitXH
-
-chmod +x MSFinstaller && ./MSFinstaller
+(wget https://git.io/JZCYu -O $TMPDIR/MSFInstaller) && chmod +x $TMPDIR/MSFInstaller && ./$TMPDIR/MSFInstaller
 
 ```
 
