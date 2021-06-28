@@ -27,8 +27,8 @@ MOR="\e[0;49;95m"
 FORT="\e[0m"
 declare -r XYELOW='\e[7;100;33m'
 MSF=$PWD
-MSFVERSION=6.0.48
-declare -r TERMUX_MD5SUM_MSF=6099c9f3c175b9baa8016ca1a00cca57
+MSFVERSION=6.0.50
+declare -r TERMUX_MD5SUM_MSF=136b438079997f73a2fb1877689faf73
 cd $HOME
 banner(){
 local -r W="\e[1;50;37m"
@@ -87,7 +87,7 @@ clear
 banner
 mkdir -p $PREFIX/opt/$NOOB
 mkdir -p $CONFIG
-[[ ! -f $CONFIG/$NAME ]] && \
+[[ ! -f $CONFIG/$NAME ]] && rm -rf $CONFIG/* && \
 	printf "${XYELOW}  Downloading Metasploit-framework in Termux ${FORT}\n\n" && \
 	printf "${GREEN}%-12s ${WHITE}: Metasploit-framework\n${GREEN}%-12s ${WHITE}: 63M\n${GREEN}%-12s ${WHITE}: ${MSFVERSION}\n${GREEN}%-12s ${WHITE}: Use for ethical purposes\n" 'Package' 'Size' 'Version' 'Note' && \
 	echo -e '---------------------------------------\n' && \
