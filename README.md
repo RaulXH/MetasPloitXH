@@ -6,8 +6,9 @@
 
 # Installation Commands
 ```
-(wget https://git.io/JZCYu -O $TMPDIR/MSFInstaller) && chmod +x $TMPDIR/MSFInstaller && $TMPDIR/./MSFInstaller
+git clone https://github.com/RaulXH/MetasPloitXH && cd MetasPloitXH
 
+chmod +x MSFinstaller && ./MSFinstaller --install
 ```
 
 # Execute
