@@ -11,9 +11,9 @@ git clone https://github.com/RaulXH/MetasPloitXH && cd MetasPloitXH
 chmod +x MSFinstaller && ./MSFinstaller --install
 ```
 
-# Execute
+# Uninstall Metasploit-framework
 ```
- msfconsole
+ ./MSFInstaller --uninstall
 
 ```
 # VIEW 
