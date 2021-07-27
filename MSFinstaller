@@ -1,0 +1,246 @@
+#!/data/data/com.termux/files/usr/bin/bash -e
+#
+#
+#
+#
+#
+#
+#	Metasploit installer for termux
+#
+#
+#
+#
+#
+#
+#	[ RaulXH ] [ Termux ]
+#
+#
+#
+#
+#
+YELOW="\e[0;50;93m"
+AGUA="\e[0;50;36m"
+WHITE="\e[0;50;37m"
+RED="\e[0;50;91m"
+GREEN="\e[0;50;32m"
+MOR="\e[0;49;95m"
+FORT="\e[0m"
+declare -r XYELOW='\e[7;100;33m'
+MSF=$PWD
+MSFVERSION=6.0.50
+declare -r TERMUX_MD5SUM_MSF=136b438079997f73a2fb1877689faf73
+cd $HOME
+banner(){
+local -r W="\e[1;50;37m"
+local -r G='\e[2;50;37m'
+local -r R='\e[0;50;31m'
+local -r FORT='\e[0m'
+printf "${W}
+                       .;::l;.                       
+                     'dollodoooc                     
+                    .ldolllooodx'                    
+                     :kkkxdkkxkx.                    
+                    .'.'cdkdl,';.                    
+                     ....',;.....                    
+                      ':cc;:lc.                      
+                ${R}.'c;.   ${W}:loc,${R}   .:o:,                
+                ....,;;;;;',,;:;,.  .                
+                       .:;':c,.                      
+                   .','.      .,,..                  
+                 ;,'             .;;                 
+                    ${G}[ ᴍᴇᴛᴀsᴘʟᴏɪᴛ ]
+${FORT}"                                             
+}
+BannerRuby(){
+	printf "${MOR}
+┬─┐┬ ┬┌┐ ┬ ┬
+├┬┘│ │├┴┐└┬┘
+┴└─└─┘└─┘ ┴${WHITE}V:2.7.0${FORT}
+"
+}
+#clear
+rm -rf $PREFIX/bin/msf* $PREFIX/opt/metasploit*
+NOOB=metasploit-framework
+NAME="$MSFVERSION.tar.gz"
+RUBY="JZCmp"
+declare -r CONFIG="$PREFIX/etc/MSF"
+function ERROR()
+{
+	echo -e "\n${RED}[!] ${AGUA}There was an error in the installation ${RED}[!]${FORT}\n"
+	rm -rf $CONFIG/$NAME
+	rm -rf $NOOB
+	rm -rf $PREFIX/msf*
+	exit 0
+}
+Install_MSF()
+{
+trap ERROR ERR
+printf "\n${XYELOW}  Installing packages  ${FORT}\n\n"
+apt update -y && apt upgrade -y 
+apt install -y libiconv zlib autoconf bison clang coreutils curl findutils git apr apr-util libffi libgmp libpcap postgresql readline libsqlite openssl libtool libxml2 libxslt ncurses pkg-config wget make  libgrpc termux-tools ncurses-utils ncurses unzip zip tar termux-elf-cleaner
+clear
+sleep 1
+BannerRuby
+wget2 --tries=30  https://git.io/JZCmp -q -P $TMPDIR
+chmod +x $TMPDIR/$RUBY
+$TMPDIR/./$RUBY
+clear
+banner
+mkdir -p $PREFIX/opt/$NOOB
+mkdir -p $CONFIG
+[[ ! -f $CONFIG/$NAME ]] && rm -rf $CONFIG/* && \
+	printf "${XYELOW}  Downloading Metasploit-framework in Termux ${FORT}\n\n" && \
+	printf "${GREEN}%-12s ${WHITE}: Metasploit-framework\n${GREEN}%-12s ${WHITE}: 63M\n${GREEN}%-12s ${WHITE}: ${MSFVERSION}\n${GREEN}%-12s ${WHITE}: Use for ethical purposes\n" 'Package' 'Size' 'Version' 'Note' && \
+	echo -e '---------------------------------------\n' && \
+	wget2 --progress=bar  --tries=10 https://github.com/rapid7/metasploit-framework/archive/refs/tags/$MSFVERSION.tar.gz --tries=30 -P $CONFIG
+until [[ $(md5sum $CONFIG/$NAME | awk '{print $1}') = "$TERMUX_MD5SUM_MSF" ]]
+do
+	printf "\n${RED}[✗] ${WHITE}Incorrect download | check your internet ${RED}[✗]${FORT}\n\n"
+	rm -rf $CONFIG/$NAME
+	exit 0
+done
+tar zxf "$CONFIG/$NAME" --strip-components=1 \
+        -C "$PREFIX"/opt/$NOOB 
+echo -e "\n${GREEN}[*] ${AGUA}  Setting up directories  ${GREEN}[*]${FORT}\n"
+msfpath=$PREFIX/opt/$NOOB
+cd $msfpath
+sleep 2
+clear
+banner
+echo -e "\n${GREEN}[✓] ${AGUA}Gems and settings update ${GREEN}[✓]${FORT}\n"
+if [ "$(gem list -i rubygems-update 2>/dev/null)" = "false" ]; then
+	gem install --no-document --verbose rubygems-update
+fi
+
+update_rubygems &>/dev/null
+until [[ $? -eq 0 ]]
+do
+	echo -e "${RED}[!] ${AGUA}Error de update_rubygems ${RED}[!]${FORT}\n"
+	exit 1
+done
+echo -e "\n${WHITE}[✓] ${AGUA}Update_rubygems installed ${WHITE}[✓]${FORT}\n"
+sleep 1
+gem install --no-document --verbose bundle &>/dev/null
+until [[ $? -eq 0 ]]
+do
+	echo -e "${RED}[!] ${AGUA}Error of bundle ${FORT}[!]${FORT}\n"
+	exit 1
+done
+echo -e "\n${WHITE}[✓] ${AGUA}Bundle installed correctly ${WHITE}[✓]\n"
+bundle config build.nokogiri --use-system-libraries &>/dev/null
+sleep 0.5
+bundle install -j3
+echo -e "\n${AGUA}Gem Installed Correctly${FORT}\n"
+echo -e "\n${WHITE}[✓] ${AGUA}Configured files ${WHITE}[✓]${FORT}\n"
+sed -i "s@/etc/resolv.conf@$PREFIX/etc/resolv.conf@g" $msfpath/lib/net/dns/resolver.rb
+find "$msfpath"  -type f -executable -print0 | xargs -0 -r termux-fix-shebang
+find "$PREFIX"/lib/ruby/gems -type f -iname \*.so -print0 | xargs -0 -r termux-elf-cleaner
+clear
+echo -e "\n${WHITE}[*] ${AGUA}Creating database PostgreSQL${WHITE}[*]${FORT}\n"
+mkdir -p "$msfpath"/config
+cat <<- EOF > "$msfpath"/config/database.yml
+production:
+  adapter: postgresql
+  database: msf_database
+  username: msf
+  password:
+  host: 127.0.0.1
+  port: 5432
+  pool: 75
+  timeout: 5
+EOF
+mkdir -p "$PREFIX"/var/lib/postgresql
+sleep 0.3
+pg_ctl -D "$PREFIX"/var/lib/postgresql stop > /dev/null 2>&1 || true
+if ! pg_ctl -D "$PREFIX"/var/lib/postgresql start --silent; then
+    initdb "$PREFIX"/var/lib/postgresql
+    pg_ctl -D "$PREFIX"/var/lib/postgresql start --silent
+fi
+if [ -z "$(psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='msf'")" ]; then
+    createuser msf
+fi
+if [ -z "$(psql -l | grep msf_database)" ]; then
+    createdb msf_database
+fi
+cat <<- OF > $PREFIX/bin/msfconsole
+#!/data/data/com.termux/files/usr/bin/bash -e
+SCRIPT_NAME=\$(basename "\$0")
+METASPLOIT_PATH="\${PREFIX}/opt/metasploit-framework"
+
+android=\$(getprop ro.build.version.release)
+if [ \${android%%.*} -ge 7 ]; then
+    RUBYVER=2.7.0
+else
+    RUBYVER=2.6.0
+fi
+case "\$(uname -m)" in
+	aarch64)
+		export LD_PRELOAD="\${PREFIX}/lib/ruby/\$RUBYVER/aarch64-linux-android/bigdecimal.so:\$LD_PRELOAD"
+		;;
+	arm*)
+		export LD_PRELOAD="\${PREFIX}/lib/ruby/\$RUBYVER/arm-linux-androideabi/bigdecimal.so:\$LD_PRELOAD"
+		;;
+	i686)
+		export LD_PRELOAD="\${PREFIX}/lib/ruby/\$RUBYVER/i686-linux-android/bigdecimal.so:\$LD_PRELOAD"
+		;;
+	x86_64)
+		export LD_PRELOAD="\${PREFIX}/lib/ruby/\$RUBYVER/x86_64-linux-android/bigdecimal.so:\$LD_PRELOAD"
+		;;
+	*)
+		;;
+esac
+case "\$SCRIPT_NAME" in
+	msfconsole|msfvenom)
+		exec ruby "\$METASPLOIT_PATH/\$SCRIPT_NAME" "\$@"
+		;;
+	*)
+		echo "[!] Unknown Metasploit command '\$SCRIPT_NAME'."
+		exit 1
+		;;
+esac
+OF
+chmod +x $PREFIX/bin/msfconsole
+ln -sf $(which msfconsole) $PREFIX/bin/msfvenom
+clear
+banner
+echo -e "\n\n${YELOW}[✓] ${AGUA}Run: ${GREEN}[ msfconsole ] ${YELOW}${FORT}\n\n"
+}
+Uninstall_MSF()
+{
+	# Uninstall Metasploit
+	printf "\n${RED} Uninstall Metasploit ${FORT}\n"
+	apt remove --purge postgresql 
+	rm -rf $CONFIG/*
+	sleep 2
+	printf "\n${YELOW} Done! ${FORT}\n\n"
+}
+HELP_MSF()
+{
+local -r X='\e[0;50;34m'
+banner
+printf "
+use:
+${X}Install Metasploit${FORT}--> \e[1;50;97m./$(basename $0) --install
+
+${X}Uninstall Metasploit${FORT}--> \e[1;50;97m./$(basename $0) --uninstall
+
+"
+
+}
+until [[ $1 ]]
+do
+	HELP_MSF
+	exit 0
+done
+case $1 in
+	\--install)
+		Install_MSF
+		;;
+	\--uninstall)
+		Uninstall_MSF
+		;;
+	*)
+		HELP_MSF
+		;;
+esac
+
