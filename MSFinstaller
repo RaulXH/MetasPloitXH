@@ -69,7 +69,7 @@ Install_MSF()
 trap ERROR ERR
 printf "\n${XYELOW}  Installing packages  ${FORT}\n\n"
 apt update -y && apt upgrade -y 
-apt install -y libiconv zlib autoconf bison clang coreutils curl findutils git apr apr-util libffi libgmp libpcap postgresql readline libsqlite openssl libtool libxml2 libxslt ncurses pkg-config wget make  libgrpc termux-tools ncurses-utils ncurses unzip zip tar termux-elf-cleaner
+apt install -y libiconv zlib autoconf bison clang wget2 coreutils curl findutils git apr apr-util libffi libgmp libpcap postgresql readline libsqlite openssl libtool libxml2 libxslt ncurses pkg-config wget make  libgrpc termux-tools ncurses-utils ncurses unzip zip tar termux-elf-cleaner
 clear
 sleep 1
 BannerRuby
