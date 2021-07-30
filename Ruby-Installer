@@ -86,12 +86,12 @@ function DPKG()
 	#
 		echo -e "\n${GREEN}| ${WHITE}Installed ruby ​​correctly $KEN ${GREEN}|${FORT}\n"
 		sleep 1
-		sed -i -e "${VERSION}c Version: 3.0.2-1" -e "${PESO}c Installed-Size: 29328" -e "${TERMUX}c Maintainer: @termux" $RUTA	
+		sed -i -e "${VERSION}c Version: 3.0.2-2" -e "${PESO}c Installed-Size: 29328" -e "${TERMUX}c Maintainer: @termux" $RUTA	
 
 	else
 		echo -e "\n${GREEN}| ${WHITE}Installed ruby ​​correctly $KEN ${GREEN}|${FORT}\n"
 		sleep 1
-		sed -i -e "${VERSION}c Version: 3.0.2-1" -e "${PESO}c Installed-Size: 28528" -e "${TERMUX}c Maintainer: @termux" $RUTA
+		sed -i -e "${VERSION}c Version: 3.0.2-2" -e "${PESO}c Installed-Size: 28528" -e "${TERMUX}c Maintainer: @termux" $RUTA
 		exit 0
 	fi
 }
