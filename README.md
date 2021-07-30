@@ -13,12 +13,12 @@ chmod +x MSFinstaller && ./MSFinstaller --install
 
 # Uninstall Metasploit-framework
 ```
- ./MSFInstaller --uninstall
+ ./MSFinstaller --uninstall
 
 ```
 # Update Metasploit
 ```
-cd MetasploitXH && git pull && chmod +x MFSInstaller && ./MSFInstaller
+./MSFinstaller --update
 ```
 # Installation ( view )
 
