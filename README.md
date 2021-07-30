@@ -16,6 +16,10 @@ chmod +x MSFinstaller && ./MSFinstaller --install
  ./MSFInstaller --uninstall
 
 ```
+# Update Metasploit
+```
+cd MetasploitXH && git pull && chmod +x MFSInstaller && ./MSFInstaller
+```
 # Installation ( view )
 
 [![asciicast](https://asciinema.org/a/sqn1hEZxMv3EPggjYYUySdVDI.svg)](https://asciinema.org/a/sqn1hEZxMv3EPggjYYUySdVDI)
