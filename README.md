@@ -21,7 +21,8 @@ chmod +x MSFinstaller && ./MSFinstaller --install
 ./MSFinstaller --update
 ```
 # Installation ( view )
-
+![Screenshot_20210730_182013_com termux](https://user-images.githubusercontent.com/77165035/127720476-44764eda-d4fc-487e-955b-d9f521c52191.jpg)
+#
 [![asciicast](https://asciinema.org/a/sqn1hEZxMv3EPggjYYUySdVDI.svg)](https://asciinema.org/a/sqn1hEZxMv3EPggjYYUySdVDI)
 
 # Uninstall ( view )
