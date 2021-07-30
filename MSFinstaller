@@ -227,8 +227,9 @@ case $1 in
 		Uninstall_MSF
 		;;
 	\--update)
+# change
 		[[ -f $CONFIG/$NAME ]] && printf "\n${GREEN}[+] ${WHITE}Metasploit is in its latest version: ${RED}$MSFVERSION ${GREEN}[+]\n\n" && exit 0
-		git pull
+		cd $OLDPWD && git pull
 		chmod +x MSFInstaller && ./MSFInstaller --install
 		#
 		;;
