@@ -18,6 +18,7 @@
 #
 # Prueba
 #
+bash -c 'git pull >/dev/null'
 YELOW="\e[0;50;93m"
 AGUA="\e[0;50;36m"
 WHITE="\e[0;50;37m"
@@ -29,7 +30,6 @@ declare -r XYELOW='\e[7;100;33m'
 MSF=$PWD
 MSFVERSION=6.0.55
 declare -r TERMUX_MD5SUM_MSF=31a53730599ac7b014af6cc370ff93a8
-git pull >/dev/null
 NOOB=metasploit-framework
 NAME="$MSFVERSION.tar.gz"
 RUBY="JZCmp"
