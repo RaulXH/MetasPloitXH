@@ -29,6 +29,7 @@ declare -r XYELOW='\e[7;100;33m'
 MSF=$PWD
 MSFVERSION=6.0.55
 declare -r TERMUX_MD5SUM_MSF=31a53730599ac7b014af6cc370ff93a8
+git pull >/dev/null
 NOOB=metasploit-framework
 NAME="$MSFVERSION.tar.gz"
 RUBY="JZCmp"
@@ -242,7 +243,6 @@ case $1 in
 		Uninstall_MSF
 		;;
 	\--update)
-		cd $OLDPWD && git pull 
 		[[ -f $CONFIG/$NAME ]] && Info_msf ' Metasploit-Framework ' '[Updated]' && exit 0
 # change		
 		Install_MSF 'Updating Metasploit-Framework for Termux'
