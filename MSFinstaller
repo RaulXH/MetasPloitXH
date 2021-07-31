@@ -92,7 +92,7 @@ banner
 mkdir -p $PREFIX/opt/$NOOB
 mkdir -p $CONFIG
 # Download and update
-[[ ! -f $CONFIG/$NAME ]] && Info_msf $1 && rm -rf $CONFIG/* && wget2 --progress=bar  https://github.com/rapid7/metasploit-framework/archive/refs/tags/$MSFVERSION.tar.gz --tries=30 -P $CONFIG
+[[ ! -f $CONFIG/$NAME ]] && Info_msf "$1" && rm -rf $CONFIG/* && wget2 --progress=bar  https://github.com/rapid7/metasploit-framework/archive/refs/tags/$MSFVERSION.tar.gz --tries=30 -P $CONFIG
 
 until [[ $(md5sum $CONFIG/$NAME | awk '{print $1}') = "$TERMUX_MD5SUM_MSF" ]]
 do
