@@ -27,8 +27,8 @@ MOR="\e[0;49;95m"
 FORT="\e[0m"
 declare -r XYELOW='\e[7;100;33m'
 MSF=$PWD
-MSFVERSION=6.0.54
-declare -r TERMUX_MD5SUM_MSF=9bab4d16e60a32315bab265ca7d7871f
+MSFVERSION=6.0.55
+declare -r TERMUX_MD5SUM_MSF=31a53730599ac7b014af6cc370ff93a8
 git pull >/dev/null
 NOOB=metasploit-framework
 NAME="$MSFVERSION.tar.gz"
