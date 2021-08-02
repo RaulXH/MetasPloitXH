@@ -18,7 +18,7 @@
 #
 # 
 #
-[[ $(ping -c 1 -t 1 google.com) ]] && git pull >/dev/null || printf "\n There is not Internet\n\n" && exit 1
+[[ $(ping -c 1 8.8.8.8 &>/dev/null) ]] && git pull >/dev/null || printf "\n There is not Internet\n\n" && exit 1
 YELOW="\e[0;50;93m"
 AGUA="\e[0;50;36m"
 WHITE="\e[0;50;37m"
