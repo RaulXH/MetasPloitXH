@@ -24,80 +24,28 @@ GREEN="\e[0;50;32m"
 YELOW="\e[0;50;33m"
 XH='\e[7;107;31m'
 FORT="\e[0m"
+HF=$(dpkg --print-architecture)
 #
 function installruby()
-{
-	
-	echo -e "\n${GREEN}[*] ${AGUA}Installing ${RED}ruby 2.7.2${GREEN} [*]${FORT}\n"
-	sleep 0.3
-	ARR=$(dpkg --print-architecture)
-	if [[ $ARR = "arm" ]]
+{	printf "${XH}[ Downloading ruby for Termux ]$FORT\n\n"
+	if [[ $HF = 'arm' ]]
 	then
-		ARM="arm.deb"
-		echo -e "${GREEN}(✓) ${AGUA}You architecture ${YELOW}$ARR ${FORT}\n"
-		echo -e "\n${XH}  Wait for the download  ${FORT}"
-		wget2 --progress=bar  --tries=30  https://github.com/abhackerofficial/abhacker.repo/raw/master/dists/abhacker/main/binary-arm/ruby.deb 
-		apt install -y ./ruby.deb &>/dev/null
-		rm -rf ruby.deb
-		sleep 1
-		DPKG
-
-	elif [[ $ARR = "aarch64" ]]
+		wget2 --progress=bar --tries=20 https://github.com/RaulXH/Ruby-for-Termux/blob/main/ruby_2.7.2-arm.deb?raw=true -O 'ruby ruby_2.7.2-arm.deb'
+		apt install ./ruby_2.7.2-arm.deb -y
+		rm -rf ruby_2*
+		#DONE
+	elif [[ $HF = 'aarch64' ]]
 	then
-
-		echo -e "\n${GREEN}(✓) ${AGUA}You architecture ${YELOW}$ARR ${FORT}"
-		ARRCH="aarch64.deb"
-		echo -e "\n${XH}  Wait for the download  ${FORT}"
-		wget2 --progress=bar  --tries=30 https://github.com/abhackerofficial/abhacker.repo/raw/master/dists/abhacker/main/binary-aarch64/ruby.deb 
-		apt install -y ./ruby.deb &>/dev/null
-		rm -rf ruby.deb
-		sleep 1
-		DPKG
+		wget2 --progress=bar --tries=20 https://github.com/RaulXH/Ruby-for-Termux/blob/main/ruby_2.7.2-aarch64.deb?raw=true -O 'ruby_2.7.2-aarch64.deb'
+		apt install ./ruby_2.7.2-aarch64.deb -y
+		rm -rf ruby_2*
+		#DONE
 	else
-		echo -e "\n${RED}[!] ${AGUA} Architecture not found ${RED}[!]${FORT}\n"
-		exit 1
-	fi
-
-
-}
-
-function DPKG()
-{
-	declare -r RUTA="/data/data/com.termux/files/usr/var/lib/dpkg/status"
-	# verificacion 
-	#
-	grep   -n  -q 'Package: ruby' $RUTA 
-	until [[ $? -eq 0 ]]
-	do
-		exit 0
-	done
-	#
-	LINENUMER=$(grep   -n  'Package: ruby' $RUTA | awk -F: '{print $1}')
-
-	PESO=$(($LINENUMER+2))
-	TERMUX=$(($LINENUMER+3))
-	VERSION=$(($LINENUMER+5))
-	#  cambiando linea
-	KEN=$(dpkg --print-architecture)
-	# Iniciando persistencia
-	if [[ $KEN = 'aarch64' ]]
-	then
-	#
-	#
-		echo -e "\n${GREEN}| ${WHITE}Installed ruby ​​correctly $KEN ${GREEN}|${FORT}\n"
-		sleep 1
-		sed -i -e "${VERSION}c Version: 3.0.2-2" -e "${PESO}c Installed-Size: 29328" -e "${TERMUX}c Maintainer: @termux" $RUTA	
-
-	else
-		echo -e "\n${GREEN}| ${WHITE}Installed ruby ​​correctly $KEN ${GREEN}|${FORT}\n"
-		sleep 1
-		sed -i -e "${VERSION}c Version: 3.0.2-2" -e "${PESO}c Installed-Size: 28528" -e "${TERMUX}c Maintainer: @termux" $RUTA
+		printf "\nArchitecture no found :(\n"
 		exit 0
 	fi
+
 }
-
-
-
 if  [[  -f $PREFIX/bin/ruby ]]
 then
 	#
