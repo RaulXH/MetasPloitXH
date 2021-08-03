@@ -42,7 +42,7 @@ function installruby()
 		rm -rf ruby_2*
 		#DONE
 	else
-		printf "\nArchitecture no found :(\n"
+		printf "\nArchitecture not found :(\n"
 		exit 0
 	fi
 
