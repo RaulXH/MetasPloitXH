@@ -26,6 +26,7 @@ XH='\e[7;107;31m'
 FORT="\e[0m"
 HF=$(dpkg --print-architecture)
 #
+[[ ! -f $(type -P wget2) ]] && printf "[ wget2 not installed ]" && exit 1
 function installruby()
 {	printf "${XH}[ Downloading ruby for Termux ]$FORT\n\n"
 	if [[ $HF = 'arm' ]]
