@@ -18,7 +18,7 @@
 #
 # 
 #
-[[ $(ping -c1 www.google.com &>/dev/null) ]] && git pull >/dev/null
+[[ $(timeout 1 bash -c 'ping -c1 www.google.com' &>/dev/null) ]] && git pull >/dev/null
 YELOW="\e[0;50;93m"
 AGUA="\e[0;50;36m"
 WHITE="\e[0;50;37m"
