@@ -246,7 +246,7 @@ case $1 in
 		[[ -f $CONFIG/$NAME ]] && Info_msf ' Metasploit-Framework ' '\e[0;50;36m[Updated]' && exit 0
 # change	
 		Info_msf ' Metasploit-Framework ' '\e[0;50;91m[Not updated]'
-		printf "\nEnder for continue..." && read
+		printf "\nEnter for continue..." && read
 		Install_MSF 'Updating Metasploit-Framework for Termux' '\e[0;50;91m[Last version]'
 #installer && ./MSFinstaller --install
 		#
