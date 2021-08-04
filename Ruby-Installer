@@ -8,7 +8,7 @@
 #	Script original
 #
 #
-#	[ Credits to my freind Abhackeroficcial ] 
+#[ Credits to my freind github.com/Abhackeroficcial ] 
 #
 #
 # 
@@ -24,33 +24,27 @@ GREEN="\e[0;50;32m"
 YELOW="\e[0;50;33m"
 XH='\e[7;107;31m'
 FORT="\e[0m"
-HF=$(dpkg --print-architecture)
+ARCH=$(dpkg --print-architecture)
 #
 [[ ! -f $(type -P wget2) ]] && printf "[ wget2 not installed ]" && exit 1
 function installruby()
 {	printf "${XH}[ Downloading ruby for Termux ]$FORT\n\n"
-	if [[ $HF = 'arm' ]]
-	then
-		wget2 --progress=bar --tries=20 https://github.com/RaulXH/Ruby-for-Termux/blob/main/ruby_2.7.2-arm.deb?raw=true -O 'ruby ruby_2.7.2-arm.deb'
-		apt install ./ruby_2.7.2-arm.deb -y
+	case $ARCH in
+		arm|aarch64|i686)
+			wget2 --progress=bar --tries=20 https://github.com/RaulXH/Ruby-for-Termux/blob/main/ruby_2.7.2-${ARCH}.deb?raw=true -O "ruby_2.7.2-${ARCH}.deb"
+		apt install "./ruby_2.7.2-${ARCH}.deb" -y
 		rm -rf ruby_2*
-		#DONE
-	elif [[ $HF = 'aarch64' ]]
-	then
-		wget2 --progress=bar --tries=20 https://github.com/RaulXH/Ruby-for-Termux/blob/main/ruby_2.7.2-aarch64.deb?raw=true -O 'ruby_2.7.2-aarch64.deb'
-		apt install ./ruby_2.7.2-aarch64.deb -y
-		rm -rf ruby_2*
-		#DONE
-	else
-		printf "\nArchitecture not found :(\n"
-		exit 0
-	fi
+		;;
+	*)
+		printf "\n${RED}[ Architecture not found ] ${FORT}\n"
+		exit 1
+		;;
+	esac
+
 
 }
 if  [[  -f $PREFIX/bin/ruby ]]
 then
-	#
-	# Si ruby existe y no esta la version 2.7.2
 	#
 	VERSION=$(ruby --version | awk '{print $2}')
 	if [[ ${VERSION%.*} =~ "2.7" ]]
@@ -65,9 +59,6 @@ then
 		
 	fi
 else
-	#
-	# Ruby no existe e Instala
-	#
 	sleep 2
 	installruby
 fi
