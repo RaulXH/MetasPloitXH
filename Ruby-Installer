@@ -31,9 +31,11 @@ function installruby()
 {	printf "${XH}[ Downloading ruby for Termux ]$FORT\n\n"
 	case $ARCH in
 		arm|aarch64|i686)
-			wget2 --progress=bar --tries=20 https://github.com/RaulXH/Ruby-for-Termux/blob/main/ruby_2.7.2-${ARCH}.deb?raw=true -O "ruby_2.7.2-${ARCH}.deb"
+			# https://github.com/RaulXH/Packages-for-termux/blob/main/ruby_2.7.2-aarch64.deb?raw=true
+			wget2 --progress=bar --tries=20 https://github.com/RaulXH/Packages-for-termux/blob/main/ruby_2.7.2-${ARCH}.deb?raw=true -O "ruby_2.7.2-${ARCH}.deb"
 		apt install "./ruby_2.7.2-${ARCH}.deb" -y
 		rm -rf ruby_2*
+<<<<<<< HEAD
 		;;
 	*)
 		printf "\n${RED}[ Architecture not found ] ${FORT}\n"
@@ -41,6 +43,13 @@ function installruby()
 		;;
 	esac
 
+=======
+		#DONE
+	else
+		printf "\nArchitecture not found :(\n"
+		exit 0
+	fi
+>>>>>>> 409f703441da68a2a6745a00a3d218d3670587eb
 
 }
 if  [[  -f $PREFIX/bin/ruby ]]
