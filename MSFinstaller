@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash -e  
+#!/data/data/com.termux/files/usr/bin/bash -e
 #
 #
 #
@@ -16,9 +16,8 @@
 #
 #
 #
-# 
 #
-[[ ! $(timeout 3 bash -c 'ping -c1 8.8.8.8' &>/dev/null) ]] && git pull &>/dev/null || echo
+#
 YELOW="\e[0;50;93m"
 AGUA="\e[0;50;36m"
 WHITE="\e[0;50;37m"
@@ -28,8 +27,8 @@ MOR="\e[0;49;95m"
 FORT="\e[0m"
 declare -r XYELOW='\e[7;100;33m'
 MSF=$PWD
-MSFVERSION=6.1.6
-declare -r TERMUX_MD5SUM_MSF=48346894ab011184df37dcd64aa40945
+MSFVERSION=6.1.12
+declare -r TERMUX_MD5SUM_MSF=c415314e58133def5cdb04c44ed749b7
 NOOB=metasploit-framework
 NAME="$MSFVERSION.tar.gz"
 RUBY="JZCmp"
@@ -69,7 +68,7 @@ trap ERROR ERR
 Info_msf()
 {
 TEXT="$1" && U="$2"
-printf "${XYELOW} $TEXT ${FORT}\n\n---------------------------------------\n${GREEN}%-12s ${WHITE}: Metasploit-framework\n${GREEN}%-12s ${WHITE}: 63M\n${GREEN}%-12s ${WHITE}: ${MSFVERSION} ${U}\n${GREEN}%-12s ${WHITE}: Use for ethical purposes\n" 'Package' 'Size' 'Version' 'Note'
+printf "${XYELOW} $TEXT ${FORT}\n\n---------------------------------------\n${GREEN}%-12s ${WHITE}: Metasploit-framework\n${GREEN}%-12s ${WHITE}: 63M\n${GREEN}%-12s ${WHITE}: ${MSFVERSION} ${AGUA}$U\n${GREEN}%-12s ${WHITE}: Use for ethical purposes\n" 'Package' 'Size' 'Version' 'Note'
 echo -e '---------------------------------------\n'
 	
 }
@@ -92,7 +91,7 @@ banner
 mkdir -p $PREFIX/opt/$NOOB
 mkdir -p $CONFIG
 # Download and update
-[[ ! -f $CONFIG/$NAME ]] && Info_msf "$1" && rm -rf $CONFIG/* && wget2 --progress=bar  https://github.com/rapid7/metasploit-framework/archive/refs/tags/$MSFVERSION.tar.gz --tries=30 -P $CONFIG
+[[ ! -f $CONFIG/$NAME ]] && Info_msf $1 && rm -rf $CONFIG/* && wget2 --progress=bar  https://github.com/rapid7/metasploit-framework/archive/refs/tags/$MSFVERSION.tar.gz --tries=30 -P $CONFIG
 
 until [[ $(md5sum $CONFIG/$NAME | awk '{print $1}') = "$TERMUX_MD5SUM_MSF" ]]
 do
@@ -243,11 +242,10 @@ case $1 in
 		Uninstall_MSF
 		;;
 	\--update)
-		[[ -f $CONFIG/$NAME ]] && Info_msf ' Metasploit-Framework ' '\e[0;50;36m[Updated]' && exit 0
-# change	
-		Info_msf ' Metasploit-Framework ' '\e[0;50;91m[Not updated]'
-		printf "\nEnter for continue..." && read
-		Install_MSF 'Updating Metasploit-Framework for Termux' '\e[0;50;91m[Last version]'
+		cd $OLDPWD && git pull 
+		[[ -f $CONFIG/$NAME ]] && Info_msf ' Metasploit-Framework ' '[Updated]' && exit 0
+# change		
+		Install_MSF 'Updating Metasploit-Framework for Termux'
 #installer && ./MSFinstaller --install
 		#
 		;;
