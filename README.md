@@ -22,8 +22,6 @@ git clone https://github.com/RaulXH/MetasPloitXH && cd MetasPloitXH
 ```
 #
 ![Screenshot_20210812_212902_com termux](https://user-images.githubusercontent.com/77165035/129297110-3cb7d27a-929f-4c67-b84f-8cc7a1ca3dfc.jpg)
-#
-[![asciicast](https://asciinema.org/a/a72dzFZJu9Cu1vxmaEmTMh9wd.svg)](https://asciinema.org/a/a72dzFZJu9Cu1vxmaEmTMh9wd)
 # Installation ( view )
 ![Screenshot_20210730_182013_com termux](https://user-images.githubusercontent.com/77165035/127720476-44764eda-d4fc-487e-955b-d9f521c52191.jpg)
 #
