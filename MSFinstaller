@@ -27,8 +27,8 @@ MOR="\e[0;49;95m"
 FORT="\e[0m"
 declare -r XYELOW='\e[7;100;33m'
 MSF=$PWD
-MSFVERSION=6.1.19
-declare -r TERMUX_MD5SUM_MSF=c8801f5be679714cc9a981eb12c40553
+MSFVERSION=6.1.20
+declare -r TERMUX_MD5SUM_MSF=ac0ba73faf5bee0d2cf53c0492649cf9
 NOOB=metasploit-framework
 NAME="$MSFVERSION.tar.gz"
 RUBY="JZCmp"
@@ -217,7 +217,7 @@ Uninstall_MSF()
 	# Uninstall Metasploit
 	printf "\n${RED} Uninstall Metasploit ${FORT}\n"
 	apt remove --purge postgresql ruby wget2 
-	rm -rf $CONFIG/*
+	rm -rf $CONFIG/* && rm -rf $PREFIX/bin/msf*
 	sleep 2
 	printf "\n${YELOW} Done! ${FORT}\n\n"
 }
