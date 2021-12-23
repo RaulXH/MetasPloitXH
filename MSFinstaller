@@ -83,9 +83,14 @@ apt install -y libiconv zlib autoconf bison clang wget2 coreutils findutils git 
 clear
 sleep 1
 BannerRuby
-wget2 --tries=30  https://git.io/JZCmp -q -P $TMPDIR
-chmod +x $TMPDIR/$RUBY
-$TMPDIR/./$RUBY
+#
+# Ruby 3.0.2
+#
+#wget2 --tries=30  https://git.io/JZCmp -q -P $TMPDIR
+#chmod +x $TMPDIR/$RUBY
+#$TMPDIR/./$RUBY
+#
+#
 clear
 banner
 mkdir -p $PREFIX/opt/$NOOB
@@ -155,12 +160,16 @@ production:
   pool: 75
   timeout: 5
 EOF
+#
+# PostgreSQL
+# 
 mkdir -p "$PREFIX"/var/lib/postgresql
 sleep 0.3
 pg_ctl -D "$PREFIX"/var/lib/postgresql stop > /dev/null 2>&1 || true
-if ! pg_ctl -D "$PREFIX"/var/lib/postgresql start --silent; then
-    initdb "$PREFIX"/var/lib/postgresql
-    pg_ctl -D "$PREFIX"/var/lib/postgresql start --silent
+if  ! pg_ctl -D "$PREFIX"/var/lib/postgresql start --silent; then
+	initdb "$PREFIX"/var/lib/postgresql
+	[[ $(pg_checksums --check -D "$PREFIX/var/lib/postgresql" 2>/dev/null)  ]]  && pg_checksums --enable -D "${PREFIX}/var/lib/postgresql"
+	pg_ctl -D "$PREFIX"/var/lib/postgresql start --silent
 fi
 if [ -z "$(psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='msf'")" ]; then
     createuser msf
@@ -168,45 +177,50 @@ fi
 if [ -z "$(psql -l | grep msf_database)" ]; then
     createdb msf_database
 fi
+#
+#
+#
 cat <<- OF > $PREFIX/bin/msfconsole
 #!/data/data/com.termux/files/usr/bin/bash -e
 SCRIPT_NAME=\$(basename "\$0")
 METASPLOIT_PATH="\${PREFIX}/opt/metasploit-framework"
-
-android=\$(getprop ro.build.version.release)
-if [ \${android%%.*} -ge 7 ]; then
-    RUBYVER=2.7.0
-else
-    RUBYVER=2.6.0
-fi
+BIGDECIMAL=`find  \$PREFIX/lib/ruby/ -type f -iname 'bigdecimal.so'`
 case "\$(uname -m)" in
-	aarch64)
-		export LD_PRELOAD="\${PREFIX}/lib/ruby/\$RUBYVER/aarch64-linux-android/bigdecimal.so:\$LD_PRELOAD"
-		;;
-	arm*)
-		export LD_PRELOAD="\${PREFIX}/lib/ruby/\$RUBYVER/arm-linux-androideabi/bigdecimal.so:\$LD_PRELOAD"
-		;;
-	i686)
-		export LD_PRELOAD="\${PREFIX}/lib/ruby/\$RUBYVER/i686-linux-android/bigdecimal.so:\$LD_PRELOAD"
-		;;
-	x86_64)
-		export LD_PRELOAD="\${PREFIX}/lib/ruby/\$RUBYVER/x86_64-linux-android/bigdecimal.so:\$LD_PRELOAD"
-		;;
-	*)
-		;;
+aarch64)
+export LD_PRELOAD="\${BIGDECIMAL}:\$LD_PRELOAD"
+;;
+arm*)
+export LD_PRELOAD="\${BIGDECIMA}:\$LD_PRELOAD"
+;;
+i686)
+export LD_PRELOAD="\${BIGDECIMAL}:\$LD_PRELOAD"
+;;
+x86_64)
+export LD_PRELOAD="\${BIGDECIMAL}:\$LD_PRELOAD"
+;;
+*)
+;;
 esac
 case "\$SCRIPT_NAME" in
-	msfconsole|msfvenom)
-		exec ruby "\$METASPLOIT_PATH/\$SCRIPT_NAME" "\$@"
-		;;
-	*)
-		echo "[!] Unknown Metasploit command '\$SCRIPT_NAME'."
-		exit 1
-		;;
+msfconsole|msfvenom|msfd|msfdb|msfrpc|msfrpcd)
+exec ruby "\$METASPLOIT_PATH/\$SCRIPT_NAME" "\$@"
+;;
+*)
+echo "[!] Unknown Metasploit command '\$SCRIPT_NAME'."
+exit 1
+;;
+
 esac
 OF
 chmod +x $PREFIX/bin/msfconsole
-ln -sf $(which msfconsole) $PREFIX/bin/msfvenom
+ln -s $(which msfconsole) $PREFIX/bin/msfvenom
+ln -s $(which msfconsole) $PREFIX/bin/msfdb
+ln -s $(which msfconsole) $PREFIX/bin/msfd
+ln -s $(which msfconsole) $PREFIX/bin/msfrpc
+ln -s $(which msfconsole) $PREFIX/bin/msfrpcd
+#
+#	END
+#
 clear
 banner
 echo -e "\n\n${YELOW}[✓] ${AGUA}Run: ${GREEN}[ msfconsole ] ${YELOW}${FORT}\n\n"
