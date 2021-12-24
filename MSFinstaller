@@ -213,11 +213,11 @@ exit 1
 esac
 OF
 chmod +x $PREFIX/bin/msfconsole
-ln -s $(which msfconsole) $PREFIX/bin/msfvenom
-ln -s $(which msfconsole) $PREFIX/bin/msfdb
-ln -s $(which msfconsole) $PREFIX/bin/msfd
-ln -s $(which msfconsole) $PREFIX/bin/msfrpc
-ln -s $(which msfconsole) $PREFIX/bin/msfrpcd
+ln -fs $(type -P msfconsole) $PREFIX/bin/msfvenom
+ln -fs $(type -P msfconsole) $PREFIX/bin/msfdb
+ln -fs $(type -P msfconsole) $PREFIX/bin/msfd
+ln -fs $(type -P msfconsole) $PREFIX/bin/msfrpc
+ln -fs $(type -P msfconsole) $PREFIX/bin/msfrpcd
 #
 #	END
 #
