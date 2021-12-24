@@ -64,7 +64,7 @@ function ERROR()
 	rm -rf $PREFIX/msf*
 	exit 0
 }
-trap ERROR ERR
+trap ERROR 1 2 
 Info_msf()
 {
 TEXT="$1" && U="$2"
@@ -231,9 +231,9 @@ Uninstall_MSF()
 	# Uninstall Metasploit
 	printf "\n${RED} Uninstall Metasploit ${FORT}\n"
 	apt remove --purge postgresql ruby wget2 
-	rm -rf $CONFIG/* && rm -rf $PREFIX/bin/msf*
+	rm -rf $CONFIG/* && rm -rf $PREFIX/bin/msf* && rm -rf $PREFIX/opt/metasploit-*
 	sleep 2
-	printf "\n${YELOW} Done! ${FORT}\n\n"
+	printf "\n${YELOW} [ Done! ]${FORT}\n\n"
 }
 HELP_MSF()
 {
