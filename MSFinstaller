@@ -27,8 +27,8 @@ MOR="\e[0;49;95m"
 FORT="\e[0m"
 declare -r XYELOW='\e[7;100;33m'
 MSF=$PWD
-MSFVERSION=6.1.19
-declare -r TERMUX_MD5SUM_MSF=c8801f5be679714cc9a981eb12c40553
+MSFVERSION=6.0.55
+declare -r TERMUX_MD5SUM_MSF=31a53730599ac7b014af6cc370ff93a8
 NOOB=metasploit-framework
 NAME="$MSFVERSION.tar.gz"
 declare -r CONFIG="$PREFIX/etc/MSF"
@@ -88,20 +88,24 @@ BannerRuby
 BRed='\033[1;31m'
 [[ $(uname -m) = 'arm' ]] && printf "$BRed[ The script is not yet available for ARM ]\n\n\033[0m" && exit 1
 [[ -f $PREFIX/bin/ruby ]] && Ruby_Version=`ruby -v | cut -d' ' -f2`
-echo ${A%%.*}
+[[ -f ~/ruby.deb ]] && rm -rf ~/ruby.deb
 [[ $(uname -m) = 'aarch64' ]] && [[ ${Ruby_Version%%.*} -ne 2 ]] && printf "[ Downloading ruby 2.7.2 ]\n\n" && if ! curl --fail --retry 5 --retry-connrefused --retry-delay 5 --location \
 	-o ruby.deb https://bit.ly/3GE2lck;
 then
 	printf "[ Error de descarga ]\n\n"
 	rm -rf ruby.deb
 fi
-[[ ! -f ruby.deb ]] && printf "[ Ruby not found! ]\n\n" && exit 1
+[[ $(uname -m) =~ arm*  ]] && [[ ${Ruby_Version%%.*} -ne 2 ]] && printf "[ Downloading ruby 2.7.2 ]\n\n" && if ! curl --fail --retry 5 --retry-connrefused --retry-delay 5 --location \
+
+#[[ ! -f ruby.deb ]] && printf "[ Ruby not found! ]\n\n" && exit 1
+apt install ./ruby.deb -y
 #
+# end 
 #
 clear
 banner
 mkdir -p $PREFIX/opt/$NOOB
-mkdir -p $CONFIG
+mkdir -p $CONFIG && cd ~
 # Download and update
 [[ ! -f $CONFIG/$NAME ]] && Info_msf $1 && rm -rf $CONFIG/* && if ! curl --fail --retry 5 --retry-connrefused --retry-delay 5 --location \
 	-O "https://github.com/rapid7/metasploit-framework/archive/refs/tags/$MSFVERSION.tar.gz";
