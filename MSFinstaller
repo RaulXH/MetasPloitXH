@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash -e
+#!/data/data/com.termux/files/usr/bin/bash 
 #
 #
 #
@@ -117,7 +117,7 @@ do
 	rm -rf $CONFIG/$NAME
 	exit 0
 done
-printf "[ \033[1;33mExtracting files'\033[0m' ]\n\n"
+printf "[ \033[1;33mExtracting files'\033[0m ]\n\n"
 tar zxf "$CONFIG/$NAME" --strip-components=1 \
         -C "$PREFIX"/opt/$NOOB
 #
