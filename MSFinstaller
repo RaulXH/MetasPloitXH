@@ -95,7 +95,6 @@ then
 	printf "[ Error de descarga ]\n\n"
 	rm -rf ruby.deb
 fi
-[[ $(uname -m) =~ arm*  ]] && [[ ${Ruby_Version%%.*} -ne 2 ]] && printf "[ Downloading ruby 2.7.2 ]\n\n" && if ! curl --fail --retry 5 --retry-connrefused --retry-delay 5 --location \
 
 #[[ ! -f ruby.deb ]] && printf "[ Ruby not found! ]\n\n" && exit 1
 apt install ./ruby.deb -y
