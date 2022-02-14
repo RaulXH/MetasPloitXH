@@ -86,18 +86,24 @@ BannerRuby
 # Ruby 3.0.2
 #
 BRed='\033[1;31m'
-[[ $(uname -m) = 'arm' ]] && printf "$BRed[ The script is not yet available for ARM ]\n\n\033[0m" && exit 1
 [[ -f $PREFIX/bin/ruby ]] && Ruby_Version=`ruby -v | cut -d' ' -f2`
 [[ -f ~/ruby.deb ]] && rm -rf ~/ruby.deb
-[[ $(uname -m) = 'aarch64' ]] && [[ ${Ruby_Version%%.*} -ne 2 ]] && printf "[ Downloading ruby 2.7.2 ]\n\n" && if ! curl --fail --retry 5 --retry-connrefused --retry-delay 5 --location \
+[[ $(dpkg --print-architecture) = 'aarch64' ]] && [[ ${Ruby_Version%%.*} -ne 2 ]] && printf "[ Downloading ruby 2.7.2 ]\n\n" && if ! curl --fail --retry 5 --retry-connrefused --retry-delay 5 --location \
 	-o ruby.deb https://bit.ly/3GE2lck;
 then
-	printf "[ Error de descarga ]\n\n"
+	printf "$BRed[ Error Download ruby 2.7.2 ]\e[0m\n\n"
 	rm -rf ruby.deb
 fi
 
+[[ $(dpkg --print-architecture) = arm  ]] && [[ ${Ruby_Version%%.*} -ne 2 ]] && printf "[ Downloading ruby 2.7.2 ]\n\n" && if ! curl --fail --retry 5 --retry-connrefused --retry-delay 5 --location \
+	-o ruby.deb https://bit.ly/3BzgFC9;
+then
+	printf "$BRed[ Error download ruby 2.7.2, try again ]\e[0m\n\n"
+	rm -rf ruby.deb
+fi
 #[[ ! -f ruby.deb ]] && printf "[ Ruby not found! ]\n\n" && exit 1
 apt install ./ruby.deb -y
+rm -rf ruby.deb
 #
 # end 
 #
