@@ -10,11 +10,11 @@
 #
 #
 #
+#	---------------------------------
 #
+#	[ RaulXH ] [ Termux ] [ Panamá ]
 #
-#	[ RaulXH ] [ Termux ]
-#
-#
+#	--------------------------------
 #
 #
 #
@@ -91,7 +91,7 @@ BRed='\033[1;31m'
 [[ $(dpkg --print-architecture) = 'aarch64' ]] && [[ ${Ruby_Version%%.*} -ne 2 ]] && printf "[ Downloading ruby 2.7.2 ]\n\n" && if ! curl --fail --retry 5 --retry-connrefused --retry-delay 5 --location \
 	-o ruby.deb https://bit.ly/3GE2lck;
 then
-	printf "$BRed[ Error Download ruby 2.7.2 ]\e[0m\n\n"
+	printf "$BRed[ Error Download ruby 2.7.2, try again ]\e[0m\n\n"
 	rm -rf ruby.deb
 fi
 
