@@ -102,7 +102,7 @@ then
 	rm -rf ruby.deb
 fi
 #[[ ! -f ruby.deb ]] && printf "[ Ruby not found! ]\n\n" && exit 1
-apt install ./ruby.deb -y
+dpkg -i ./ruby.deb && apt install -f
 rm -rf ruby.deb
 #
 # end 
@@ -279,10 +279,10 @@ case $1 in
 		Uninstall_MSF
 		;;
 	\--update)
-		cd $OLDPWD && git pull 
+		#cd $OLDPWD && git pull 
 		[[ -f $CONFIG/$NAME ]] && Info_msf ' Metasploit-Framework ' '[Updated]' && exit 0
 # change		
-		Install_MSF 'Updating Metasploit-Framework for Termux'
+		#Install_MSF 'Updating Metasploit-Framework for Termux'
 #installer && ./MSFinstaller --install
 		#
 		;;
