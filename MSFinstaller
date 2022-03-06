@@ -140,6 +140,12 @@ echo -e "\n${GREEN}[*] ${AGUA}  Setting up directories  ${GREEN}[*]${FORT}\n"
 cd $msfpath
 sleep 2
 clear
+# FIXED openssl-1.1
+ln -sf $PREFIX/lib/openssl-1.1/libssl.so.1.1 $PREFIX/lib/
+ln -sf $PREFIX/lib/openssl-1.1/libcrypto.so.1.1 $PREFIX/lib/
+#
+#
+#
 banner
 echo -e "\n${GREEN}[✓] ${AGUA}Gems and settings update ${GREEN}[✓]${FORT}\n"
 if [ "$(gem list -i rubygems-update 2>/dev/null)" = "false" ]; then
