@@ -78,7 +78,7 @@ rm -rf $PREFIX/bin/msf* $PREFIX/opt/metasploit*
 #
 printf "\n${XYELOW}  Installing packages  ${FORT}\n\n"
 pkg update -y && pkg upgrade -y 
-pkg install -y libiconv zlib autoconf bison clang curl coreutils findutils git apr apr-util libffi libgmp libpcap postgresql readline libsqlite openssl libtool libxml2 libxslt ncurses pkg-config wget make  libgrpc termux-tools ncurses-utils ncurses unzip zip tar termux-elf-cleaner
+pkg install -y openssl-1.1 libiconv zlib autoconf bison clang curl coreutils findutils git apr apr-util libffi libgmp libpcap postgresql readline libsqlite openssl libtool libxml2 libxslt ncurses pkg-config wget make  libgrpc termux-tools ncurses-utils ncurses unzip zip tar termux-elf-cleaner
 clear
 sleep 1
 BannerRuby
