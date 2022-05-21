@@ -41,7 +41,7 @@ local -r R='\e[0;50;31m'
 local -r FORT='\e[0m'
 printf "${RED}
             _                _     _ _   
-  _ __  ___| |_ __ _ ____ __| |___(_) |_ 
+  _\e[100mᴛᴇʀᴍᴜx\e[0m${RED}__| |_ __ _ ____ __| |___(_) |_ 
  | '  \/ -_)  _/ _ (_'-< '_ \ / _ \ |  _|
  |_|_|_\___|\__\__,_/__/ .__/_\___/_|\__|
                        |_| v: ${W}$MSFVERSION
@@ -119,7 +119,7 @@ then
 	rm -rf $CONFIG/$NAME
 	exit 0
 fi
-mv -f ~/${NAME} $CONFIG
+[[ -f ~/${NAME} ]] && mv -f ~/${NAME} $CONFIG
 until [[ $(md5sum $CONFIG/$NAME | awk '{print $1}') = "$TERMUX_MD5SUM_MSF" ]]
 do
 	printf "\n${RED}[✗] ${WHITE}Incorrect download | check your internet ${RED}[✗]${FORT}\n\n"
